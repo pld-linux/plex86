@@ -1,6 +1,6 @@
 
 %define		__year		2001
-%define		__date		0718
+%define		__date		1015
 #%define		__time		1707
 %define		_kernel_ver	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 %define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)

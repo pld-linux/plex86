@@ -42,7 +42,7 @@ pracuj±ce systemy.
 
 %build
 CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses"
-%configure --with-Linux --with-gui=x
+%configure2_13 --with-Linux --with-gui=x
 
 %{__make}
 

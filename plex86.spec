@@ -26,7 +26,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel
 Requires:	kernel%{smpstr}-char-%{name}
-#%{name}-module = %{version}
+#%%{name}-module = %{version}
 PreReq:		XFree86
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

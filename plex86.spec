@@ -5,7 +5,7 @@
 
 Name:		plex86
 Version:	%{__year}%{__date}
-Release:	1
+Release:	1@%{_kernel_ver}
 Summary:	x86 CPU emulator
 Summary(pl):	Emulator procesorów x86
 Group:		Applications/Emulators
@@ -18,6 +18,7 @@ Source0:	ftp://ftp.plex86.org/pub/%{name}-%{__year}-%{__date}.tar.gz
 BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel
+%conflicts_kernel_ver
 PreReq:		XFree86
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

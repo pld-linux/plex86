@@ -1,10 +1,10 @@
 
 %define		__year		2001
 %define		__date		0718
-%define		__time		1707
+#%define		__time		1707
 
 Name:		plex86
-Version:	%{__year}_%{__date}_%{__time}
+Version:	%{__year}%{__date}
 Release:	1
 Summary:	x86 CPU emulator
 Summary(pl):	Emulator procesorów x86
@@ -13,8 +13,8 @@ Group(de):	Applikationen/Emulators
 Group(pl):	Aplikacje/Emulatory
 License:	LGPL
 ExclusiveArch:	i586 i686 i786 K5 K6 K7
-Source0:	ftp://ftp.plex86.org/pub/%{name}-%{__year}-%{__date}-%{__time}.tar.gz
-Patch0:		%{name}.patch
+Source0:	ftp://ftp.plex86.org/pub/%{name}-%{__year}-%{__date}.tar.gz
+#Patch0:		%{name}.patch
 BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel
@@ -37,7 +37,7 @@ pracuj±ce systemy.
 
 %prep
 %setup -q -n %{name}
-%patch -p1
+#%patch -p1
 
 %build
 CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses"
@@ -89,7 +89,7 @@ find docs -type f -name .cvsignore -o -name Makefile\* | xargs rm -f
 mv -f docs/README docs/README.docs
 
 gzip -9nf README README.DOS ChangeLog PERFORMANCE SBE-OFF-CONDITIONS TODO
-gzip -9nf docs/{README.docs,sgml/README*,txt/*,xml/README}
+gzip -9nf docs/{README.docs,txt/*,xml/README}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -144,4 +144,4 @@ mkfontdir %{_fontsdir}/misc
 %{_libdir}/plex86/bios/*BIOS*
 %{_libdir}/plex86/conf
 
-%doc *.gz docs/{README*,html,misc,sgml,xml,txt}
+%doc *.gz docs/{README*,html,misc,xml,txt}

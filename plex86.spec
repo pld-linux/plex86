@@ -27,7 +27,8 @@ URL:		http://www.plex86.org/
 BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel
-Requires:	%{name}-module = %{version}
+Requires:	kernel%{smpstr}-char-%{name}
+#%{name}-module = %{version}
 PreReq:		XFree86
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

@@ -91,10 +91,10 @@ install -d  $RPM_BUILD_ROOT%{_bindir} \
 
 %if %{_kernel24}
 	install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/char
-	install -m644 kernel/plex86.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/char
+	cp kernel/plex86.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/char
 %else
 	install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
-	install -m644 kernel/plex86.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
+	cp kernel/plex86.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
 %endif
 
 # install the stuff

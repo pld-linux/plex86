@@ -14,7 +14,7 @@ Group(de):	Applikationen/Emulators
 Group(pl):	Aplikacje/Emulatory
 License:	LGPL
 ExclusiveArch:	%{ix86}
-Source0:	ftp://ftp.plex86.org/pub/%{name}-%{__year}-%{__date}.tar.gz
+Source0:	%{name}-%{__year}%{__date}.tar.gz
 #Patch0:		%{name}.patch
 BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel

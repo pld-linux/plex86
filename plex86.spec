@@ -2,11 +2,13 @@
 %define		__year		2001
 %define		__date		0718
 #%define		__time		1707
-%define		_kernel_ver	%(grep UTS_RELEASE /usr/src/linux/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
+%define		_kernel_ver	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
+%define		smpstr		%{?_with_smp:smp}%{!?_with_smp:up}
+%define		smp		%{?_with_smp:1}%{!?_with_smp:0}
 
 Name:		plex86
 Version:	%{__year}%{__date}
-Release:	1@%{_kernel_ver}
+Release:	1
 Summary:	x86 CPU emulator
 Summary(pl):	Emulator procesorów x86
 Group:		Applications/Emulators
@@ -14,12 +16,12 @@ Group(de):	Applikationen/Emulators
 Group(pl):	Aplikacje/Emulatory
 License:	LGPL
 ExclusiveArch:	%{ix86}
-Source0:	%{name}-%{__year}%{__date}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 #Patch0:		%{name}.patch
 BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel
-Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
+Requires:	%{name}-module = %{version}
 PreReq:		XFree86
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -36,13 +38,45 @@ komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacj±,
 ktora pozwala na dzielenie poszczególnych zasobów komputera miêdzy
 pracuj±ce systemy.
 
+%package module
+Summary:	The kernel module necessary to use Plex86
+Summary(pl):	Modu³ j±dra niezbêdny do u¿ywania Plex86
+Group:		Base/Kernel
+Group(de):	Grundsätzlich/Kern
+Group(pl):	Podstawowe/J±dro
+Release:	%{release}@%{_kernel_ver}%{smpstr}
+Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
+Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
+Prereq:		/sbin/depmod
+
+%description module
+Plex86 is an Open Source x86 PC virtualization program which let's you
+concurrently run multiple x86 operating systems and corresponding
+software on your x86 machine.
+
+This package contains the kernel module necessary to run Plex86.
+
+%description module -l pl
+Plex86 pozwala na uruchamianie wielu systemów operacyjnych na jednym
+komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacj±,
+ktora pozwala na dzielenie poszczególnych zasobów komputera miêdzy
+pracuj±ce systemy.
+
+Ten pakiet zawiera modu³ j±dra niezbêdny do uruchomienia Plex86.
+
 %prep
 %setup -q -n %{name}
 #%patch -p1
 
 %build
-CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses"
-%configure2_13 --with-Linux --with-gui=x
+CXXFLAGS="%{rpmcflags} -I%{_includedir}/ncurses"
+%if %{smp}
+CFLAGS="%{rpmcflags} -D__KERNEL_SMP=1"
+%endif
+%configure2_13 \
+	--with-Linux \
+	--with-linux-source=%{_kernelsrcdir} \
+	--with-gui=x
 
 %{__make}
 
@@ -57,10 +91,10 @@ install -d  $RPM_BUILD_ROOT%{_bindir} \
 
 %if %{_kernel24}
 	install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/char
-	install kernel/plex86.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/char
+	install -m644 kernel/plex86.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/char
 %else
 	install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
-	install kernel/plex86.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
+	install -m644 kernel/plex86.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
 %endif
 
 # install the stuff
@@ -101,22 +135,21 @@ if [ ! -e /dev/plex86 ]; then
     mknod /dev/plex86 c 254 0
     chmod a+rw /dev/plex86
 fi
-/sbin/depmod -a
 
 %postun
 rm -f /dev/plex86
 mkfontdir %{_fontsdir}/misc
+
+%post module
+/sbin/depmod -a
+
+%postun module
 /sbin/depmod -a
 
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/plex86
 %attr(755,root,root) %{_bindir}/resetmod
-%if %{_kernel24}
-/lib/modules/*/kernel/drivers/char/plex86.o
-%else
-/lib/modules/*/misc/plex86.o
-%endif
 %dir %{_libdir}/plex86
 %dir %{_libdir}/plex86/guest
 %dir %{_libdir}/plex86/guest/*
@@ -146,3 +179,11 @@ mkfontdir %{_fontsdir}/misc
 %{_libdir}/plex86/conf
 
 %doc *.gz docs/{README*,html,misc,xml,txt}
+
+%files module
+%defattr(644,root,root,755)
+%if %{_kernel24}
+/lib/modules/*/kernel/drivers/char/plex86.o
+%else
+/lib/modules/*/misc/plex86.o
+%endif

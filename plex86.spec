@@ -18,6 +18,7 @@ Group:		Applications/Emulators
 License:	LGPL
 ExclusiveArch:	%{ix86}
 Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	7369eb855ff6dd9bd6552785cc5128f3
 # snapshots on ftp:
 #Source0:	ftp://ftp.plex86.org/source-tarballs/current.tar.gz
 # or

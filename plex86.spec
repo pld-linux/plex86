@@ -121,7 +121,7 @@ install guest/cooperative/kernel $RPM_BUILD_ROOT%{_libdir}/plex86/guest/cooperat
 install guest/paging/kernel $RPM_BUILD_ROOT%{_libdir}/plex86/guest/paging
 install guest/preemptive/kernel $RPM_BUILD_ROOT%{_libdir}/plex86/guest/preemptive
 install guest/test/kernel $RPM_BUILD_ROOT%{_libdir}/plex86/guest/test
-install guest/virtcode/virtcode $RPM_BUILD_ROOT/%{_libdir}/plex86/guest/virtcode
+install guest/virtcode/virtcode $RPM_BUILD_ROOT%{_libdir}/plex86/guest/virtcode
 
 # added console fonts used by plex
 gzip -9nf misc/vga.pcf

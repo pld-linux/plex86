@@ -31,7 +31,7 @@ Requires:	kernel%{smpstr}-char-%{name}
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_kernel24	%(echo %{_kernel_ver} | grep -q '2\.[012]\.' ; echo $?)
+%define		_kernel24	%(echo %{_kernel_ver} | grep -qv '2\.4\.' ; echo $?)
 
 %description
 Plex86 is an Open Source x86 PC virtualization program which let's you

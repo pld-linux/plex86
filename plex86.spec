@@ -144,10 +144,10 @@ rm -f /dev/plex86
 mkfontdir %{_fontsdir}/misc
 
 %post	-n kernel%{smpstr}-char-plex86
-/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
+/sbin/depmod -a %{!?_without_dist_kernel:-F /boot/System.map-%{_kernel_ver} }%{_kernel_ver}
 
 %postun -n kernel%{smpstr}-char-plex86
-/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
+/sbin/depmod -a %{!?_without_dist_kernel:-F /boot/System.map-%{_kernel_ver} }%{_kernel_ver}
 
 %files
 %defattr(644,root,root,755)

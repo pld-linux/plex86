@@ -13,8 +13,6 @@ Release:	1
 Summary:	Virtual computer for x86
 Summary(pl):	Wirtualny komputer dla x86
 Group:		Applications/Emulators
-Group(de):	Applikationen/Emulators
-Group(pl):	Aplikacje/Emulatory
 License:	LGPL
 ExclusiveArch:	%{ix86}
 Source0:	%{name}-%{version}.tar.gz
@@ -49,8 +47,6 @@ pracuj±ce systemy.
 Summary:	The kernel module necessary to use Plex86
 Summary(pl):	Modu³ j±dra niezbêdny do u¿ywania Plex86
 Group:		Base/Kernel
-Group(de):	Grundsätzlich/Kern
-Group(pl):	Podstawowe/J±dro
 Release:	%{release}@%{_kernel_ver_str}
 Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
 Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}

@@ -12,7 +12,7 @@ Group:		Applications/Emulators
 Group(de):	Applikationen/Emulators
 Group(pl):	Aplikacje/Emulatory
 License:	LGPL
-ExclusiveArch:	i586 i686 i786 K5 K6 K7
+ExclusiveArch:	%{ix86}
 Source0:	ftp://ftp.plex86.org/pub/%{name}-%{__year}-%{__date}.tar.gz
 #Patch0:		%{name}.patch
 BuildRequires:	libstdc++-devel

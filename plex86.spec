@@ -2,6 +2,7 @@
 %define		__year		2001
 %define		__date		0718
 #%define		__time		1707
+%define		_kernel_ver	%(grep UTS_RELEASE /usr/src/linux/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 
 Name:		plex86
 Version:	%{__year}%{__date}
@@ -18,11 +19,10 @@ Source0:	ftp://ftp.plex86.org/pub/%{name}-%{__year}-%{__date}.tar.gz
 BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel
-%conflicts_kernel_ver
+Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
 PreReq:		XFree86
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_kernel_ver	%(grep UTS_RELEASE /usr/src/linux/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 %define		_kernel24	%(echo %{_kernel_ver} | grep -q '2\.[012]\.' ; echo $?)
 
 %description

@@ -127,9 +127,6 @@ find docs -type d -name CVS | xargs rm -rf
 find docs -type f -name .cvsignore -o -name Makefile\* | xargs rm -f
 mv -f docs/README docs/README.docs
 
-gzip -9nf README README.DOS ChangeLog PERFORMANCE SBE-OFF-CONDITIONS TODO
-gzip -9nf docs/{README.docs,txt/*,xml/README}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -181,8 +178,8 @@ mkfontdir %{_fontsdir}/misc
 %dir %{_libdir}/plex86/bios
 %{_libdir}/plex86/bios/*BIOS*
 %{_libdir}/plex86/conf
-
-%doc *.gz docs/{README*,html,misc,xml,txt}
+%doc README README.DOS ChangeLog PERFORMANCE SBE-OFF-CONDITIONS TODO
+%doc docs/{README*,html,misc,xml,txt}
 
 %files -n kernel%{smpstr}-char-plex86
 %defattr(644,root,root,755)

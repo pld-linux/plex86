@@ -18,7 +18,12 @@ Group(pl):	Aplikacje/Emulatory
 License:	LGPL
 ExclusiveArch:	%{ix86}
 Source0:	%{name}-%{version}.tar.gz
+# snapshots on ftp:
+#Source0:	ftp://ftp.plex86.org/source-tarballs/current.tar.gz
+# or
+#Source0:	ftp://ftp.plex86.org/source-tarballs/plex86-%{__year}-%{__date}.tar.gz
 #Patch0:		%{name}.patch
+URL:		http://www.plex86.org/
 BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel

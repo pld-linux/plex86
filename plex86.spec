@@ -1,7 +1,7 @@
 
 %define		__year		2001
-%define		__date		0302
-%define		__time		1106
+%define		__date		0718
+%define		__time		1707
 
 Name:		plex86
 Version:	%{__year}_%{__date}_%{__time}

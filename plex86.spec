@@ -9,8 +9,8 @@
 Name:		plex86
 Version:	%{__year}%{__date}
 Release:	1
-Summary:	x86 CPU emulator
-Summary(pl):	Emulator procesorów x86
+Summary:	Virtual computer for x86
+Summary(pl):	Wirtualny komputer dla x86
 Group:		Applications/Emulators
 Group(de):	Applikationen/Emulators
 Group(pl):	Aplikacje/Emulatory

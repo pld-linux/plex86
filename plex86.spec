@@ -1,4 +1,6 @@
 
+# TODO: UP/SMP modules
+
 %define		__year		2001
 %define		__date		1015
 #%define		__time		1707
@@ -48,10 +50,10 @@ Summary:	The kernel module necessary to use Plex86
 Summary(pl):	Modu³ j±dra niezbêdny do u¿ywania Plex86
 Group:		Base/Kernel
 Release:	%{release}@%{_kernel_ver_str}
+Requires(post,postun):	/sbin/depmod
 Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
 Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
 Obsoletes:	plex86-module
-Prereq:		/sbin/depmod
 
 %description -n kernel%{smpstr}-char-plex86
 Plex86 is an Open Source x86 PC virtualization program which let's you
@@ -141,11 +143,11 @@ fi
 rm -f /dev/plex86
 mkfontdir %{_fontsdir}/misc
 
-%post -n kernel%{smpstr}-char-plex86
-/sbin/depmod -a
+%post	-n kernel%{smpstr}-char-plex86
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
 
 %postun -n kernel%{smpstr}-char-plex86
-/sbin/depmod -a
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
 
 %files
 %defattr(644,root,root,755)

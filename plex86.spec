@@ -184,7 +184,7 @@ mkfontdir %{_fontsdir}/misc
 %files -n kernel%{smpstr}-char-plex86
 %defattr(644,root,root,755)
 %if %{_kernel24}
-/lib/modules/*/kernel/drivers/char/plex86.o
+/lib/modules/*/kernel/drivers/char/plex86.o*
 %else
-/lib/modules/*/misc/plex86.o
+/lib/modules/*/misc/plex86.o*
 %endif

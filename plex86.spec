@@ -3,7 +3,8 @@
 %define		__date		0718
 #%define		__time		1707
 %define		_kernel_ver	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
-%define		smpstr		%{?_with_smp:smp}%{!?_with_smp:up}
+%define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)
+%define		smpstr		%{?_with_smp:-smp}
 %define		smp		%{?_with_smp:1}%{!?_with_smp:0}
 
 Name:		plex86
@@ -38,25 +39,26 @@ komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacj±,
 ktora pozwala na dzielenie poszczególnych zasobów komputera miêdzy
 pracuj±ce systemy.
 
-%package module
+%package -n kernel%{smpstr}-char-plex86
 Summary:	The kernel module necessary to use Plex86
 Summary(pl):	Modu³ j±dra niezbêdny do u¿ywania Plex86
 Group:		Base/Kernel
 Group(de):	Grundsätzlich/Kern
 Group(pl):	Podstawowe/J±dro
-Release:	%{release}@%{_kernel_ver}%{smpstr}
+Release:	%{release}@%{_kernel_ver_str}
 Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
 Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
+Obsoletes:	plex86-module
 Prereq:		/sbin/depmod
 
-%description module
+%description -n kernel%{smpstr}-char-plex86
 Plex86 is an Open Source x86 PC virtualization program which let's you
 concurrently run multiple x86 operating systems and corresponding
 software on your x86 machine.
 
 This package contains the kernel module necessary to run Plex86.
 
-%description module -l pl
+%description -n kernel%{smpstr}-char-plex86 -l pl
 Plex86 pozwala na uruchamianie wielu systemów operacyjnych na jednym
 komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacj±,
 ktora pozwala na dzielenie poszczególnych zasobów komputera miêdzy
@@ -140,10 +142,10 @@ fi
 rm -f /dev/plex86
 mkfontdir %{_fontsdir}/misc
 
-%post module
+%post -n kernel%{smpstr}-char-plex86
 /sbin/depmod -a
 
-%postun module
+%postun -n kernel%{smpstr}-char-plex86
 /sbin/depmod -a
 
 %files
@@ -180,7 +182,7 @@ mkfontdir %{_fontsdir}/misc
 
 %doc *.gz docs/{README*,html,misc,xml,txt}
 
-%files module
+%files -n kernel%{smpstr}-char-plex86
 %defattr(644,root,root,755)
 %if %{_kernel24}
 /lib/modules/*/kernel/drivers/char/plex86.o

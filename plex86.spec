@@ -4,19 +4,16 @@
 %define		__year		2001
 %define		__date		1015
 #%define		__time		1707
-%define		_kernel_ver	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
-%define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)
 %define		smpstr		%{?_with_smp:-smp}
 %define		smp		%{?_with_smp:1}%{!?_with_smp:0}
 
+Summary:	Virtual computer for x86
+Summary(pl):	Wirtualny komputer dla x86
 Name:		plex86
 Version:	%{__year}%{__date}
 Release:	1
-Summary:	Virtual computer for x86
-Summary(pl):	Wirtualny komputer dla x86
-Group:		Applications/Emulators
 License:	LGPL
-ExclusiveArch:	%{ix86}
+Group:		Applications/Emulators
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	7369eb855ff6dd9bd6552785cc5128f3
 # snapshots on ftp:
@@ -29,9 +26,9 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	rpmbuild(macros) >= 1.118
+Requires(post,postun):	fontpostinst
 Requires:	kernel%{smpstr}-char-%{name}
-#%%{name}-module = %{version}
-PreReq:		XFree86
+ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_kernel24	%(echo %{_kernel_ver} | grep -q '2\.[012]\.' ; echo $?)
@@ -53,8 +50,8 @@ Summary(pl):	Modu³ j±dra niezbêdny do u¿ywania Plex86
 Group:		Base/Kernel
 Release:	%{release}@%{_kernel_ver_str}
 Requires(post,postun):	/sbin/depmod
-Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
-Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
+%{!?_without_dist_kernel:%{!?_with_smp:%requires_releq_kernel_up}}
+%{!?_without_dist_kernel:%{?_with_smp:%requires_releq_kernel_smp}}
 Obsoletes:	plex86-module
 
 %description -n kernel%{smpstr}-char-plex86
@@ -135,15 +132,10 @@ mv -f docs/README docs/README.docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-mkfontdir %{_fontsdir}/misc
-if [ ! -e /dev/plex86 ]; then
-    mknod /dev/plex86 c 254 0
-    chmod a+rw /dev/plex86
-fi
+fontpostinst misc
 
 %postun
-rm -f /dev/plex86
-mkfontdir %{_fontsdir}/misc
+fontpostinst misc
 
 %post	-n kernel%{smpstr}-char-plex86
 %depmod %{_kernel_ver}
@@ -153,37 +145,38 @@ mkfontdir %{_fontsdir}/misc
 
 %files
 %defattr(644,root,root,755)
+%doc README README.DOS ChangeLog PERFORMANCE SBE-OFF-CONDITIONS TODO
+%doc docs/{README*,html,misc,xml,txt}
 %attr(755,root,root) %{_bindir}/plex86
 %attr(755,root,root) %{_bindir}/resetmod
 %dir %{_libdir}/plex86
 %dir %{_libdir}/plex86/guest
 %dir %{_libdir}/plex86/guest/*
-%attr(755,root,root)%{_libdir}/plex86/guest/cooperative/kernel
-%attr(755,root,root)%{_libdir}/plex86/guest/paging/kernel
-%attr(755,root,root)%{_libdir}/plex86/guest/preemptive/kernel
-%attr(755,root,root)%{_libdir}/plex86/guest/test/kernel
-%attr(755,root,root)%{_libdir}/plex86/guest/virtcode/virtcode
+%attr(755,root,root) %{_libdir}/plex86/guest/cooperative/kernel
+%attr(755,root,root) %{_libdir}/plex86/guest/paging/kernel
+%attr(755,root,root) %{_libdir}/plex86/guest/preemptive/kernel
+%attr(755,root,root) %{_libdir}/plex86/guest/test/kernel
+%attr(755,root,root) %{_libdir}/plex86/guest/virtcode/virtcode
 %dir %{_libdir}/plex86/plugins
 %dir %{_libdir}/plex86/plugins/*
-%attr(755,root,root)%{_libdir}/plex86/plugins/bochs/plugin-bochs.so
-%attr(755,root,root)%{_libdir}/plex86/plugins/loader/load-kernel.so
-%attr(755,root,root)%{_libdir}/plex86/plugins/misc/replay_io.so
-%attr(755,root,root)%{_libdir}/plex86/plugins/write-cache/write-cache.so
-#%attr(755,root,root)%{_libdir}/plex86/plugins/ice/plugin-ice.so
+%attr(755,root,root) %{_libdir}/plex86/plugins/bochs/plugin-bochs.so
+%attr(755,root,root) %{_libdir}/plex86/plugins/loader/load-kernel.so
+%attr(755,root,root) %{_libdir}/plex86/plugins/misc/replay_io.so
+%attr(755,root,root) %{_libdir}/plex86/plugins/write-cache/write-cache.so
+#%attr(755,root,root) %{_libdir}/plex86/plugins/ice/plugin-ice.so
 %dir %{_libdir}/plex86/misc
 %{_libdir}/plex86/misc/mbrdata
 %{_libdir}/plex86/misc/vga.pcf
 %{_libdir}/plex86/misc/vga_io.log
-%attr(755,root,root)%{_libdir}/plex86/misc/createdisk.sh
+%attr(755,root,root) %{_libdir}/plex86/misc/createdisk.sh
 %{_libdir}/plex86/misc/createdisk.README
-%attr(755,root,root)%{_libdir}/plex86/misc/load_module.sh
-%attr(755,root,root)%{_libdir}/plex86/misc/unload_module.sh
-%attr(755,root,root)%{_libdir}/plex86/misc/netbsd_post.sh
+%attr(755,root,root) %{_libdir}/plex86/misc/load_module.sh
+%attr(755,root,root) %{_libdir}/plex86/misc/unload_module.sh
+%attr(755,root,root) %{_libdir}/plex86/misc/netbsd_post.sh
 %dir %{_libdir}/plex86/bios
 %{_libdir}/plex86/bios/*BIOS*
 %{_libdir}/plex86/conf
-%doc README README.DOS ChangeLog PERFORMANCE SBE-OFF-CONDITIONS TODO
-%doc docs/{README*,html,misc,xml,txt}
+%attr(666,root,root) %dev(c,254,0) /dev/plex86
 
 %files -n kernel%{smpstr}-char-plex86
 %defattr(644,root,root,755)

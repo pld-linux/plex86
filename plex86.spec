@@ -40,7 +40,7 @@ software on your x86 machine.
 %description -l pl
 Plex86 pozwala na uruchamianie wielu systemów operacyjnych na jednym
 komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacj±,
-ktora pozwala na dzielenie poszczególnych zasobów komputera miêdzy
+która pozwala na dzielenie poszczególnych zasobów komputera miêdzy
 pracuj±ce systemy.
 
 %package -n kernel%{smpstr}-char-plex86
@@ -63,7 +63,7 @@ This package contains the kernel module necessary to run Plex86.
 %description -n kernel%{smpstr}-char-plex86 -l pl
 Plex86 pozwala na uruchamianie wielu systemów operacyjnych na jednym
 komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacj±,
-ktora pozwala na dzielenie poszczególnych zasobów komputera miêdzy
+która pozwala na dzielenie poszczególnych zasobów komputera miêdzy
 pracuj±ce systemy.
 
 Ten pakiet zawiera modu³ j±dra niezbêdny do uruchomienia Plex86.

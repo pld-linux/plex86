@@ -28,6 +28,7 @@ URL:		http://www.plex86.org/
 BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel
+BuildRequires:	rpmbuild(macros) >= 1.118
 Requires:	kernel%{smpstr}-char-%{name}
 #%%{name}-module = %{version}
 PreReq:		XFree86
@@ -145,10 +146,10 @@ rm -f /dev/plex86
 mkfontdir %{_fontsdir}/misc
 
 %post	-n kernel%{smpstr}-char-plex86
-/sbin/depmod -a %{!?_without_dist_kernel:-F /boot/System.map-%{_kernel_ver} }%{_kernel_ver}
+%depmod %{_kernel_ver}
 
 %postun -n kernel%{smpstr}-char-plex86
-/sbin/depmod -a %{!?_without_dist_kernel:-F /boot/System.map-%{_kernel_ver} }%{_kernel_ver}
+%depmod %{_kernel_ver}
 
 %files
 %defattr(644,root,root,755)

@@ -16,6 +16,7 @@ ExclusiveArch:	i586 i686 i786 K5 K6 K7
 Source0:	ftp://ftp.plex86.org/pub/%{name}-%{__year}-%{__date}-%{__time}.tar.gz
 Patch0:		%{name}.patch
 BuildRequires:	libstdc++-devel
+BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel
 PreReq:		XFree86
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -40,7 +41,7 @@ pracuj±ce systemy.
 
 %build
 CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses"
-%configure --with-Linux --with-gui=curses
+%configure --with-Linux --with-gui=x
 
 %{__make}
 

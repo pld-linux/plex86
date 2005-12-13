@@ -22,8 +22,8 @@ Source0:	%{name}-%{version}.tar.gz
 #Source0:	ftp://ftp.plex86.org/source-tarballs/plex86-%{__year}-%{__date}.tar.gz
 #Patch0:		%{name}.patch
 URL:		http://www.plex86.org/
-BuildRequires:	libstdc++-devel
 BuildRequires:	XFree86-devel
+BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	rpmbuild(macros) >= 1.118
 Requires(post,postun):	fontpostinst
@@ -74,7 +74,7 @@ Ten pakiet zawiera modu³ j±dra niezbêdny do uruchomienia Plex86.
 #%patch -p1
 
 %build
-CXXFLAGS="%{rpmcflags} -I%{_includedir}/ncurses"
+CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses"
 %if %{smp}
 CFLAGS="%{rpmcflags} -D__KERNEL_SMP=1"
 %endif

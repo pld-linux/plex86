@@ -8,7 +8,7 @@
 %define		smp		%{?_with_smp:1}%{!?_with_smp:0}
 
 Summary:	Virtual computer for x86
-Summary(pl):	Wirtualny komputer dla x86
+Summary(pl.UTF-8):   Wirtualny komputer dla x86
 Name:		plex86
 Version:	%{__year}%{__date}
 Release:	1
@@ -38,15 +38,15 @@ Plex86 is an Open Source x86 PC virtualization program which let's you
 concurrently run multiple x86 operating systems and corresponding
 software on your x86 machine.
 
-%description -l pl
-Plex86 pozwala na uruchamianie wielu systemów operacyjnych na jednym
-komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacj±,
-która pozwala na dzielenie poszczególnych zasobów komputera miêdzy
-pracuj±ce systemy.
+%description -l pl.UTF-8
+Plex86 pozwala na uruchamianie wielu systemÃ³w operacyjnych na jednym
+komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacjÄ…,
+ktÃ³ra pozwala na dzielenie poszczegÃ³lnych zasobÃ³w komputera miÄ™dzy
+pracujÄ…ce systemy.
 
 %package -n kernel%{smpstr}-char-plex86
 Summary:	The kernel module necessary to use Plex86
-Summary(pl):	Modu³ j±dra niezbêdny do u¿ywania Plex86
+Summary(pl.UTF-8):   ModuÅ‚ jÄ…dra niezbÄ™dny do uÅ¼ywania Plex86
 Group:		Base/Kernel
 Release:	%{release}@%{_kernel_ver_str}
 Requires(post,postun):	/sbin/depmod
@@ -61,13 +61,13 @@ software on your x86 machine.
 
 This package contains the kernel module necessary to run Plex86.
 
-%description -n kernel%{smpstr}-char-plex86 -l pl
-Plex86 pozwala na uruchamianie wielu systemów operacyjnych na jednym
-komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacj±,
-która pozwala na dzielenie poszczególnych zasobów komputera miêdzy
-pracuj±ce systemy.
+%description -n kernel%{smpstr}-char-plex86 -l pl.UTF-8
+Plex86 pozwala na uruchamianie wielu systemÃ³w operacyjnych na jednym
+komputerze PC. Wykorzystywana jest tutaj metoda nazwana wirtualizacjÄ…,
+ktÃ³ra pozwala na dzielenie poszczegÃ³lnych zasobÃ³w komputera miÄ™dzy
+pracujÄ…ce systemy.
 
-Ten pakiet zawiera modu³ j±dra niezbêdny do uruchomienia Plex86.
+Ten pakiet zawiera moduÅ‚ jÄ…dra niezbÄ™dny do uruchomienia Plex86.
 
 %prep
 %setup -q -n %{name}

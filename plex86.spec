@@ -8,7 +8,7 @@
 %define		smp		%{?_with_smp:1}%{!?_with_smp:0}
 
 Summary:	Virtual computer for x86
-Summary(pl.UTF-8):   Wirtualny komputer dla x86
+Summary(pl.UTF-8):	Wirtualny komputer dla x86
 Name:		plex86
 Version:	%{__year}%{__date}
 Release:	1
@@ -46,7 +46,7 @@ pracujące systemy.
 
 %package -n kernel%{smpstr}-char-plex86
 Summary:	The kernel module necessary to use Plex86
-Summary(pl.UTF-8):   Moduł jądra niezbędny do używania Plex86
+Summary(pl.UTF-8):	Moduł jądra niezbędny do używania Plex86
 Group:		Base/Kernel
 Release:	%{release}@%{_kernel_ver_str}
 Requires(post,postun):	/sbin/depmod
